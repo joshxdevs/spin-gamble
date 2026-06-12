@@ -1,7 +1,7 @@
 <div align="center">
   <img src="./preview.png" alt="Spin Gamble Interface" width="800"/>
 
-  # 🎰 Spin Gamble (100xGamble)
+  # Spin Gamble (100xGamble)
 
   **A Decentralized Web3 Casino built on Solana**
 
@@ -13,22 +13,22 @@
   [Features](#features) • [Architecture](#architecture) • [Getting Started](#getting-started) • [Tech Stack](#tech-stack) • [Disclaimer](#disclaimer)
 </div>
 
-## 📖 Overview
+## Overview
 
 Spin Gamble is a decentralized gambling platform where users can connect their Phantom wallet and play classic casino-style games using SOL. Leveraging the high throughput and low fees of the Solana blockchain, the platform ensures verifiable, on-chain transactions and instant payouts.
 
 ---
 
-## ✨ Features
+## Features
 
-- **🪙 Coin Flip:** A fast-paced 50/50 game. Choose your bet size, flip the coin, and instantly receive a 2x payout if you win.
-- **🎡 Roulette:** A classic roulette experience featuring an animated wheel. Pick your lucky number, spin, and hit a jackpot payout.
-- **👛 Seamless Wallet Integration:** Native integration with Phantom and other Solana wallets using `@solana/wallet-adapter`.
-- **⚡ Instant On-Chain Settlements:** All bets and payouts are verified and settled on the Solana devnet in seconds.
+- **Coin Flip:** A fast-paced 50/50 game. Choose your bet size, flip the coin, and instantly receive a 2x payout if you win.
+- **Roulette:** A classic roulette experience featuring an animated wheel. Pick your lucky number, spin, and hit a jackpot payout.
+- **Seamless Wallet Integration:** Native integration with Phantom and other Solana wallets using `@solana/wallet-adapter`.
+- **Instant On-Chain Settlements:** All bets and payouts are verified and settled on the Solana devnet in seconds.
 
 ---
 
-## 🏗 Architecture & Flow
+## Architecture & Flow
 
 The system relies on a two-part architecture: a React frontend that handles UI and wallet interactions, and an Express backend that securely verifies transactions and processes payouts.
 
@@ -62,7 +62,7 @@ sequenceDiagram
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -105,7 +105,7 @@ pnpm dev
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 ### Frontend (`/wallet-adapter`)
 - **Framework:** React 19 + TypeScript + Vite
@@ -123,7 +123,7 @@ pnpm dev
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 spin-gamble/
@@ -144,6 +144,6 @@ spin-gamble/
 
 ---
 
-## ⚠️ Disclaimer
+## Disclaimer
 
 This project is built strictly for **educational and learning purposes** and operates exclusively on the **Solana Devnet**. It is **not** intended for real-money gambling. Always gamble responsibly and adhere to local laws and regulations regarding online gambling.
