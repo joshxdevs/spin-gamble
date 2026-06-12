@@ -1,99 +1,149 @@
-# 100xGamble
+<div align="center">
+  <img src="./preview.png" alt="Spin Gamble Interface" width="800"/>
 
-A Solana-based gambling platform where users can connect their Phantom wallet and play casino-style games using SOL on devnet.
+  # 🎰 Spin Gamble (100xGamble)
 
-## Games
+  **A Decentralized Web3 Casino built on Solana**
 
-### Coin Flip
-Pick heads or tails, choose a bet amount (0.1, 0.5, 1, or 2 SOL), and flip. Win = 2x your bet sent back instantly.
+  [![Solana](https://img.shields.io/badge/Solana-362D59?style=for-the-badge&logo=solana&logoColor=white)](https://solana.com/)
+  [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
+  [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+  [![Express](https://img.shields.io/badge/Express.js-404D59?style=for-the-badge)](https://expressjs.com/)
 
-### Roulette
-Pick a number (0-36), place your bet, and spin the wheel. Hit your number = 10x payout.
+  [Features](#features) • [Architecture](#architecture) • [Getting Started](#getting-started) • [Tech Stack](#tech-stack) • [Disclaimer](#disclaimer)
+</div>
 
-## Tech Stack
+## 📖 Overview
 
-**Frontend** (`wallet-adapter/`)
-- React 19 + TypeScript + Vite
-- Solana Wallet Adapter (Phantom)
-- Tailwind CSS v4
-- Framer Motion (roulette wheel animation)
-- Jotai (state management)
-- React Router
+Spin Gamble is a decentralized gambling platform where users can connect their Phantom wallet and play classic casino-style games using SOL. Leveraging the high throughput and low fees of the Solana blockchain, the platform ensures verifiable, on-chain transactions and instant payouts.
 
-**Backend** (`backend/`)
-- Express 5 + TypeScript
-- Solana Web3.js
-- Verifies on-chain transactions via RPC before determining outcomes
+---
 
-## How It Works
+## ✨ Features
 
-1. User connects their Phantom wallet
-2. Selects a game and bet amount
-3. Frontend sends SOL to the platform wallet via an on-chain transaction
-4. Backend verifies the transaction signature against Solana devnet
-5. Backend determines win/loss (50/50 for coin flip, 1/37 for roulette)
-6. If the user wins, the backend sends the payout from the platform wallet back to the user
+- **🪙 Coin Flip:** A fast-paced 50/50 game. Choose your bet size, flip the coin, and instantly receive a 2x payout if you win.
+- **🎡 Roulette:** A classic roulette experience featuring an animated wheel. Pick your lucky number, spin, and hit a jackpot payout.
+- **👛 Seamless Wallet Integration:** Native integration with Phantom and other Solana wallets using `@solana/wallet-adapter`.
+- **⚡ Instant On-Chain Settlements:** All bets and payouts are verified and settled on the Solana devnet in seconds.
 
-## Getting Started
+---
+
+## 🏗 Architecture & Flow
+
+The system relies on a two-part architecture: a React frontend that handles UI and wallet interactions, and an Express backend that securely verifies transactions and processes payouts.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant U as User
+    participant F as React Frontend
+    participant W as Phantom Wallet
+    participant S as Solana Devnet
+    participant B as Express Backend
+
+    U->>F: Selects Game & Bet Amount
+    F->>W: Prompts for Transaction Approval
+    W->>S: Transfers SOL to Platform Wallet
+    S-->>F: Returns Transaction Signature
+    F->>B: Sends Signature & Game Data
+    B->>S: Verifies Transaction via RPC
+    B->>B: Calculates Win/Loss (RNG)
+    
+    alt User Wins
+        B->>S: Transfers Payout to User
+        S-->>B: Payout Confirmed
+        B-->>F: Success (Win Outcome)
+        F-->>U: Displays Celebration & Updated Balance
+    else User Loses
+        B-->>F: Success (Loss Outcome)
+        F-->>U: Displays Loss & Prompts Retry
+    end
+```
+
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js
-- pnpm
-- Phantom wallet (browser extension)
-- Solana devnet SOL (get from [Solana Faucet](https://faucet.solana.com))
 
-### Backend
+- [Node.js](https://nodejs.org/) (v18+)
+- [pnpm](https://pnpm.io/)
+- A [Phantom Wallet](https://phantom.app/) extension
+- Devnet SOL (obtainable from the [Solana Faucet](https://faucet.solana.com/))
+
+### 1. Backend Setup
+
+Navigate to the backend directory, install dependencies, and configure your environment variables.
 
 ```bash
 cd backend
 pnpm install
 ```
 
-Create a `.env` file:
-
-```
+Create a `.env` file in the `backend` directory:
+```env
 PLATFORM_PUBLIC_KEY=<your-platform-wallet-public-key>
 PLATFORM_PRIVATE_KEY=<your-platform-wallet-private-key-base58>
 ```
 
+Start the backend server:
 ```bash
 pnpm dev
 ```
+> **Note:** The Express server will run on `http://localhost:3000`.
 
-The server runs on `http://localhost:3000`.
+### 2. Frontend Setup
 
-### Frontend
+In a new terminal, navigate to the `wallet-adapter` directory to launch the React frontend.
 
 ```bash
 cd wallet-adapter
 pnpm install
 pnpm dev
 ```
+> **Note:** The Vite development server will open on `http://localhost:5173`.
 
-Opens on `http://localhost:5173`.
+---
 
-## Project Structure
+## 🛠 Tech Stack
 
+### Frontend (`/wallet-adapter`)
+- **Framework:** React 19 + TypeScript + Vite
+- **Styling:** Tailwind CSS v4
+- **Animations:** Framer Motion
+- **Web3:** `@solana/wallet-adapter`, `@solana/web3.js`
+- **State Management:** Jotai
+- **Routing:** React Router DOM
+
+### Backend (`/backend`)
+- **Server:** Node.js + Express 5
+- **Language:** TypeScript
+- **Web3:** `@solana/web3.js` (Transaction Verification & Payouts)
+- **HTTP Client:** Axios (RPC Interaction)
+
+---
+
+## 📁 Project Structure
+
+```text
+spin-gamble/
+├── backend/                  # Node.js + Express server for game logic & payouts
+│   ├── src/
+│   │   ├── index.ts          # API Endpoints (/flip, /roulette) & Transaction processing
+│   │   └── config/utils.ts   # Platform wallet configuration
+│   └── package.json
+└── wallet-adapter/           # React frontend built with Vite
+    ├── src/
+    │   ├── components/       # Reusable UI (Nav, Roulette Wheel, etc.)
+    │   ├── pages/            # Views (Landing, CoinFlip, Roulette)
+    │   ├── store/            # Jotai state atoms
+    │   ├── App.tsx           # WalletProviders & Routing setup
+    │   └── main.tsx
+    └── package.json
 ```
-.
-├── backend/
-│   └── src/
-│       ├── index.ts          # Express server with /flip and /roulette endpoints
-│       └── config/utils.ts   # Platform keypair and constants
-├── wallet-adapter/
-│   └── src/
-│       ├── pages/
-│       │   ├── landing.tsx    # Landing page with game selection
-│       │   ├── coinFlip.tsx   # Coin flip game
-│       │   └── roulette.tsx   # Roulette game
-│       ├── components/
-│       │   ├── nav.tsx        # Navbar with wallet connect + balance
-│       │   └── rouletteWhele.tsx  # Animated roulette wheel
-│       ├── config/utils.ts   # Frontend constants
-│       └── store/atom.ts     # Jotai atoms
-└── .gitignore
-```
 
-## Disclaimer
+---
 
-This project runs on Solana **devnet** and is built for learning/educational purposes. Not intended for real-money gambling.
+## ⚠️ Disclaimer
+
+This project is built strictly for **educational and learning purposes** and operates exclusively on the **Solana Devnet**. It is **not** intended for real-money gambling. Always gamble responsibly and adhere to local laws and regulations regarding online gambling.
