@@ -147,3 +147,7 @@ spin-gamble/
 ## Disclaimer
 
 This project is built strictly for **educational and learning purposes** and operates exclusively on the **Solana Devnet**. It is **not** intended for real-money gambling. Always gamble responsibly and adhere to local laws and regulations regarding online gambling.
+
+## License
+
+This project is licensed under the MIT License
